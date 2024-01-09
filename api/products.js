@@ -20,7 +20,7 @@ module.exports = app => {
 
         product.activated = true;
         product.createdAt = new Date().toISOString()
-  
+        console.log(product)
         app.db('products')
             .insert(product)
             .then(_ => res.status(204).send())
@@ -30,7 +30,6 @@ module.exports = app => {
     const get = (req, res) => {
         app.db('products')
             .select('idProduct', 'productName', 'productDescription', 'price','image', 'activated', 'createdAt', 'idUserSeller', 'idCategorie')
-            //.raw("idProduct, productName, productDescription, price, encode(image, 'base64'), activated, createdAt, idUserSeller, idCategorie")
             .then(products => res.json(products))
             .catch(err => res.status(500).send(err))
     }
